@@ -37,6 +37,11 @@ inputs:
     required: false
     default: 'false'
 
+  startup-sleep-seconds:
+    description: 'Seconds to wait for OpenSearch to start before running health checks'
+    required: false
+    default: '30'
+
 runs:
   using: "composite"
   steps:
@@ -194,7 +199,7 @@ runs:
     - name: Sleep while OpenSearch starts
       uses: peternied/action-sleep@v1
       with:
-        seconds: 30
+        seconds: ${{ inputs.startup-sleep-seconds }}
 
      # Verify that the server is operational
     - name: Check OpenSearch Running on Linux
